@@ -36,9 +36,6 @@ jobs:
       run: dotnet build --configuration Release --no-restore
       working-directory: ${{env.working-directory}}
 
-    - name: Check tag
-      run: echo ${{ github.event.release.tag_name }}
-
     - name: Check ref
       run: echo ${{ github.ref }}
 
