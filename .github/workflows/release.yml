@@ -47,7 +47,7 @@ jobs:
       run: echo ${{ steps.previoustag.outputs.tag }}
 
     - name: Zip the Build
-      run: zip -r Thenewboston.${{ steps.previoustag.outputs.tag }}.zip ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
+      run: zip -r ${{env.working-directory}}/Thenewboston.${{ steps.previoustag.outputs.tag }}.zip ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
     
     - name: Check ref
       run: ls ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
