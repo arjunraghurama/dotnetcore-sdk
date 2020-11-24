@@ -48,7 +48,16 @@ jobs:
 
     - name: Zip the Build
       run: zip -r Thenewboston.${{ steps.previoustag.outputs.tag }}.zip ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
-      
+    
+    - name: Check ref
+      run: ls ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
+    - name: Check ref
+      run: ls ${{env.working-directory}}/Thenewboston/bin/Release/
+    - name: Check ref
+      run: ls ${{env.working-directory}}/Thenewboston
+    - name: Check ref
+      run: ls ${{env.working-directory}}
+    
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -61,14 +70,5 @@ jobs:
         draft: false
         prerelease: false  
 
-    - name: Check ref
-      run: ls ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
-    - name: Check ref
-      run: ls ${{env.working-directory}}/Thenewboston/bin/Release/
-    - name: Check ref
-      run: ls ${{env.working-directory}}/Thenewboston
-    - name: Check ref
-      run: ls ${{env.working-directory}}
-      
         #- name: Publish NuGet Package
     #  run: dotnet nuget push ${{env.working-directory}}/Thenewboston/bin/Release/Thenewboston.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.API_KEY_NUGET }} --source https://api.nuget.org/v3/index.json --no-symbols true
