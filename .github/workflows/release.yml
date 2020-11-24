@@ -47,11 +47,19 @@ jobs:
       run: echo ${{ steps.previoustag.outputs.tag }}
 
     - name: Zip the Build
-      run: zip -r Thenewboston.${{ github.event.release.tag_name }} ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
-
-    - name: Create NuGet Package
-      run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/releases/tag/${{ github.event.release.tag_name }}"
-      working-directory: ${{env.working-directory}}/Thenewboston
+      run: zip -r Thenewboston.${{ steps.previoustag.outputs.tag }}.zip ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
       
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      with:
+        tag_name: ${{ steps.previoustag.outputs.tag }}
+        release_name: Release ${{ steps.previoustag.outputs.tag }}
+        body: For release details please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/releases/tag/${{ steps.previoustag.outputs.tag }}"
+        draft: false
+        prerelease: false    
+    
     #- name: Publish NuGet Package
     #  run: dotnet nuget push ${{env.working-directory}}/Thenewboston/bin/Release/Thenewboston.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.API_KEY_NUGET }} --source https://api.nuget.org/v3/index.json --no-symbols true
