@@ -58,6 +58,7 @@ jobs:
       run: ls ${{env.working-directory}}/Thenewboston
     - name: Check ref
       run: ls ${{env.working-directory}}
+      
     - name: Check file loc
       run: find ${{env.working-directory}} -name Thenewboston.${{ steps.previoustag.outputs.tag }}.zip
     
