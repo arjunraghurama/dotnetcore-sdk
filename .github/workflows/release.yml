@@ -20,6 +20,7 @@ jobs:
       uses: anothrNick/github-tag-action@1.26.0
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        RELEASE_BRANCHES : autotag
         WITH_V: true
 
     - name: Setup .NET Core
@@ -44,8 +45,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ github.event.release.tag_name }}
+        release_name: Release ${{ github.event.release.tag_name }}
         body: For release details please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/releases/tag/${{ github.event.release.tag_name }}"
         draft: false
         prerelease: false
@@ -65,5 +66,5 @@ jobs:
       run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/releases/tag/${{ github.event.release.tag_name }}"
       working-directory: ${{env.working-directory}}/Thenewboston
       
-    - name: Publish NuGet Package
-      run: dotnet nuget push ${{env.working-directory}}/Thenewboston/bin/Release/Thenewboston.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.API_KEY_NUGET }} --source https://api.nuget.org/v3/index.json --no-symbols true
+    #- name: Publish NuGet Package
+    #  run: dotnet nuget push ${{env.working-directory}}/Thenewboston/bin/Release/Thenewboston.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.API_KEY_NUGET }} --source https://api.nuget.org/v3/index.json --no-symbols true
