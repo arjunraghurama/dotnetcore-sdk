@@ -57,6 +57,8 @@ jobs:
       run: ls ${{env.working-directory}}/Thenewboston
     - name: Check ref
       run: ls ${{env.working-directory}}
+    - name: Check file loc
+      run: find / -name Thenewboston.${{ steps.previoustag.outputs.tag }}.zip
     
     - name: Create Release
       id: create_release
