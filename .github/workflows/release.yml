@@ -2,7 +2,7 @@ name: Create and Publish package
 
 on: 
   push:
-    branches: [ develop ]
+    branches: [ develop-43 ]
 
 jobs:
   build:
