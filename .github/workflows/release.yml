@@ -48,6 +48,7 @@ jobs:
 
     - name: Zip the Build
       run: zip -r Thenewboston.${{ steps.previoustag.outputs.tag }}.zip ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
+      working-directory: ${{env.working-directory}}
     
     - name: Check ref
       run: ls ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
@@ -58,7 +59,7 @@ jobs:
     - name: Check ref
       run: ls ${{env.working-directory}}
     - name: Check file loc
-      run: find / -name Thenewboston.${{ steps.previoustag.outputs.tag }}.zip
+      run: find ${{env.working-directory}} -name Thenewboston.${{ steps.previoustag.outputs.tag }}.zip
     
     - name: Create Release
       id: create_release
