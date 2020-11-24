@@ -23,6 +23,13 @@ jobs:
         RELEASE_BRANCHES: main
         WITH_V: true
 
+    - name: 'Get Previous tag'
+      id: previoustag
+      uses: "WyriHaximus/github-action-get-previous-tag@master"
+    
+    - name: Check tag version
+      run: echo ${{ steps.previoustag.outputs.tag }}
+      
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -37,33 +44,10 @@ jobs:
       working-directory: ${{env.working-directory}}
 
     - name: Check ref
-      run: echo ${{ github.ref }}
+      run: echo ${{ steps.previoustag.outputs.tag }}
 
     - name: Zip the Build
       run: zip -r Thenewboston.${{ github.event.release.tag_name }} ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
-
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: For release details please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/releases/tag/${{ github.event.release.tag_name }}"
-        draft: false
-        prerelease: false
-
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/Thenewboston.${{ github.event.release.tag_name }}.zip
-        asset_name: ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/Thenewboston.${{ github.event.release.tag_name }}.zip
-        asset_content_type: application/zip
 
     - name: Create NuGet Package
       run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/releases/tag/${{ github.event.release.tag_name }}"
