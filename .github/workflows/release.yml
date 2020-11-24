@@ -48,7 +48,6 @@ jobs:
 
     - name: Zip the Build
       run: zip -r Thenewboston.${{ steps.previoustag.outputs.tag }}.zip ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
-      working-directory: ${{env.working-directory}}
     
     - name: Check ref
       run: ls ${{env.working-directory}}/Thenewboston/bin/Release/netcoreapp3.1/
