@@ -105,8 +105,9 @@ jobs:
         pwd
         ls
         ls ./bin/Release/
-        export version=${{steps.previoustag.outputs.tag}}
-        export versionNumber=${version:1}
+        echo versionNumber
+        #export version=${{steps.previoustag.outputs.tag}}
+        #export versionNumber=${version:1}
         echo ./bin/Release/Thenewboston.${versionNumber}.nupkg
         echo  ---------
       working-directory: ${{env.working-directory}}/Thenewboston
