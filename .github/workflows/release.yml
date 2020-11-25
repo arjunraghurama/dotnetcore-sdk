@@ -97,7 +97,7 @@ jobs:
         export versionNumber=${version:1}
         echo versionNumber
         #dotnet pack -c Release /p:Version=$versionNumber /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
-        dotnet pack -c Release /p:Version=$steps.previoustag.outputs.tag:1 /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
+        dotnet pack -c Release /p:Version=${steps.previoustag.outputs.tag:1} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
         ls ./bin/Release
       working-directory: ${{env.working-directory}}/Thenewboston
         #- name: Publish NuGet Package
