@@ -92,7 +92,8 @@ jobs:
     - name: Create NuGet Package
       run: |
         export version=${{steps.previoustag.outputs.tag}}
-        dotnet pack -c Release /p:Version=${{ version:1 }} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
+        export versionNumber=${version:1}
+        dotnet pack -c Release /p:Version=${{ versionNumber}} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
         ls ${{env.working-directory}}/Thenewboston/bin/Release/
       working-directory: ${{env.working-directory}}/Thenewboston
         #- name: Publish NuGet Package
