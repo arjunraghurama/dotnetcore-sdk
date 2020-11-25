@@ -99,5 +99,7 @@ jobs:
         dotnet pack -c Release /p:Version=$versionNumber /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
       working-directory: ${{env.working-directory}}/Thenewboston
       
+    - name: Create NuGet Package
+      run: pwd
         #- name: Publish NuGet Package
     #  run: dotnet nuget push ${{env.working-directory}}/Thenewboston/bin/Release/Thenewboston.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.API_KEY_NUGET }} --source https://api.nuget.org/v3/index.json --no-symbols true
