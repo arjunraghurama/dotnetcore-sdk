@@ -83,7 +83,10 @@ jobs:
         asset_content_type: application/zip
 
     - name: Check
-      run : echo ${{steps.previoustag.outputs.tag}}
+      run : |
+        echo ${{steps.previoustag.outputs.tag}}
+        export version=${{steps.previoustag.outputs.tag}}
+        echo $version
         
     #- name: Create NuGet Package
      # env:
