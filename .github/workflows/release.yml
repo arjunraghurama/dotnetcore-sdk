@@ -109,6 +109,6 @@ jobs:
         export versionNumber=${version:1}
         echo ./bin/Release/Thenewboston.${versionNumber}.nupkg
         echo  ---------
-      working-directory: ${{env.working-directory}}/Thenewboston
+      #working-directory: ${{env.working-directory}}/Thenewboston
         #- name: Publish NuGet Package
     #  run: dotnet nuget push ${{env.working-directory}}/Thenewboston/bin/Release/Thenewboston.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.API_KEY_NUGET }} --source https://api.nuget.org/v3/index.json --no-symbols true
