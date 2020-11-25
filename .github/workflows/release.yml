@@ -107,8 +107,8 @@ jobs:
         ls ./bin/Release/
         #echo $version
         #echo $versionNumber
-        #export version=${{steps.previoustag.outputs.tag}}
-        #export versionNumber=${version:1}
+        export version=${{steps.previoustag.outputs.tag}}
+        export versionNumber=${version:1}
         #echo $version
         #echo $versionNumber
         echo ./bin/Release/Thenewboston.${versionNumber}.nupkg
