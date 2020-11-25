@@ -108,7 +108,7 @@ jobs:
         export version=${{steps.previoustag.outputs.tag}}
         export versionNumber=${version:1}
         echo versionNumber
-        echo ./bin/Release/Thenewboston.${ versionNumber }.nupkg
+        echo ./bin/Release/Thenewboston.${{ versionNumber }}.nupkg
         echo  ---------
       working-directory: ${{env.working-directory}}/Thenewboston
         #- name: Publish NuGet Package
