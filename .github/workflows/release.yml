@@ -89,11 +89,11 @@ jobs:
         echo $version
         echo ${version:1}
         
-    #- name: Create NuGet Package
-     # env:
-      #  VERSION: ${{steps.previoustag.outputs.tag}}
-       # VERSION_NUMBER : "${version:1}"
-      #run: dotnet pack -c Release /p:Version=${{ steps.previoustag.outputs.tag }} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
-      #working-directory: ${{env.working-directory}}/Thenewboston
+    - name: Create NuGet Package
+      run: |
+        export version=${{steps.previoustag.outputs.tag}}
+        dotnet pack -c Release /p:Version=${{ version:1 }} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
+        ls ${{env.working-directory}}/Thenewboston/bin/Release/
+      working-directory: ${{env.working-directory}}/Thenewboston
         #- name: Publish NuGet Package
     #  run: dotnet nuget push ${{env.working-directory}}/Thenewboston/bin/Release/Thenewboston.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.API_KEY_NUGET }} --source https://api.nuget.org/v3/index.json --no-symbols true
