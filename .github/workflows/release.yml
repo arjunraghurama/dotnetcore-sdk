@@ -87,6 +87,7 @@ jobs:
         echo ${{steps.previoustag.outputs.tag}}
         export version=${{steps.previoustag.outputs.tag}}
         echo $version
+        echo ${version:1}
         
     #- name: Create NuGet Package
      # env:
