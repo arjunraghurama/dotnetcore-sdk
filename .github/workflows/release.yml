@@ -83,7 +83,10 @@ jobs:
         asset_content_type: application/zip
     
     - name: Create NuGet Package
-      run: dotnet pack -c Release /p:Version=${{ steps.previoustag.outputs.tag:1 }} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
+      run: |
+        version="${{steps.previoustag.outputs.tag:1}}"
+        echo $version
+        dotnet pack -c Release /p:Version=${{ version }} /p:PackageReleaseNotes="Please refer to https://github.com/thenewboston-developers/dotnetcore-sdk/"
       working-directory: ${{env.working-directory}}/Thenewboston
         #- name: Publish NuGet Package
     #  run: dotnet nuget push ${{env.working-directory}}/Thenewboston/bin/Release/Thenewboston.${{ github.event.release.tag_name }}.nupkg --api-key ${{ secrets.API_KEY_NUGET }} --source https://api.nuget.org/v3/index.json --no-symbols true
